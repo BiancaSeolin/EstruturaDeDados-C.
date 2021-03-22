@@ -1,53 +1,40 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "Lista.h"
-
-#define TAM_VET 5
+#include "pilha.h"
+#define ESQUERDA 0
+#define DIREITA 1
+#define FRENTE 2
+#define MAX 6
 
 int main()
 {
-    int vet_numeros_lista_um[TAM_VET] = {9,0,2,3,10};
-    int vet_numeros_lista_dois[TAM_VET] = {7,4,6,5,1};
+    int vetInteiro[MAX] = {FRENTE, FRENTE , FRENTE, FRENTE , DIREITA,
+                                    DIREITA };
+
+    Pilha* pilha = criarPilha();
 
     int i;
 
-    Lista* cabecaListaUm = criarLista();
-    Lista* cabecaListaDois = criarLista();
-    Lista* cabecaListaMergida = criarLista();
-
-    //INSERINDO LISTA UM ORDENADO
-    for(i = 0; i<TAM_VET; i++){
-        inserindoOrdenado(cabecaListaUm, vet_numeros_lista_um[i]);
+    for(i = 0; i<MAX; i++){
+        inserirPilha(pilha, vetInteiro[i]);
     }
 
-    //INSERINDO LISTA DOIS ORDENADO
-    for(i = 0; i<TAM_VET; i++){
-        inserindoOrdenado(cabecaListaDois, vet_numeros_lista_dois[i]);
+    printf("Caminho do robo na ida:\n\n");
+    caminhoIda(pilha);
+    printf("\n\n");
+    printf("\nCaminho do Robo na Volta:\n\n");
+    caminhoVolta(pilha);
+    printf("\n\n");
+    
+    
+
+
+    if(apagarPilha(pilha) == 1){
+       // printf("PILHA APAGADA !\n");
+    }else{
+        printf("NAO FOI POSSIVEL APAGAR A PILHA !!!\n");
     }
 
-    //MOSTRANDO LISTAS ORDENADAS
-    printf("\nLista UM: ");
-    mostrarLista(cabecaListaUm);
-
-    printf("\nLista Dois: ");
-    mostrarLista(cabecaListaDois);
-
-    //DAR MERGE NAS LISTAS
-    mergeListas(cabecaListaUm, cabecaListaDois, cabecaListaMergida);
-
-    printf("\nLista Mergida: ");
-    mostrarLista(cabecaListaMergida);
-
-
-
-
-    //APAGANDO LISTAS COMPLETAS
-    apagarLista(cabecaListaUm);
-    apagarLista(cabecaListaDois);
-    apagarLista(cabecaListaMergida);
-
-
-    printf("\n\n\n");
-
+    
     return 0;
 }
